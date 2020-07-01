@@ -1,0 +1,39 @@
+version: '3'
+services:
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build: .
+    command: bash -c "cd cashback_api && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+# rotas:
+#     revendedores:
+#         create - post /
+#         login - post
+#     compras:
+#         list - get /
+#         gathered-cashback - get
+#
+#
+#
+# models:
+#     resellers:
+#         fullname
+#         cpf
+#         email
+#         password
+#     shopping:
+#         code
+#         value
+#         date
+#         reseller's cpf
