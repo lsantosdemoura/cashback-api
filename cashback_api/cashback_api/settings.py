@@ -29,6 +29,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
+CASHBACK_TOKEN = config('CASHBACK_TOKEN')
 
 # Application definition
 
@@ -134,3 +135,17 @@ STATIC_URL = '/static/'
 
 
 AUTH_USER_MODEL = 'core.User'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+}
+
+
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'cpf'
+}
