@@ -6,4 +6,5 @@ requests==2.24.0
 loguru==0.5.1
 psycopg2==2.8.5
 python-decouple==3.3
-django-localflavor
+django-localflavor==3.0.1
+djangorestframework-simplejwt==4.4.0
