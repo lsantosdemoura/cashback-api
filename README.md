@@ -85,7 +85,29 @@ $ make run-tests
   ```
 
 ### /purchases/
-  - Creates a new purchase for the given reseller, it creates only if it is authenticated, it also can have start_date and end_date query parameters for a range of date in response
+  - Creates a purchase for the authenticated reseller
+  - POST
+  - payload:
+  ```javascript
+  {
+      "code": "string",
+      "value": "float",
+      "date": "string",
+      "reseller": "string"
+  }
+  ```
+  - response:
+  ```javacript
+  {
+    "code": "string",
+    "value": "string",
+    "date": "string",
+    "reseller": "string",
+    "status": "string"
+  }
+  ```
+### /purchases/
+  - Retrieves the authenticated reseller's purchases, the response has the last month purchases but with `start_date` and `end_date` query parameters the response will have that range
   - GET
   - query parameters [optional]:
   ```
@@ -96,15 +118,6 @@ $ make run-tests
   ```javascript
   {
       "Authorization": "Bearer <access token>"
-  }
-  ```
-  - payload:
-  ```javascript
-  {
-      "code": "string",
-      "value": "float",
-      "date": "string",
-      "reseller": "string"
   }
   ```
   - response:
