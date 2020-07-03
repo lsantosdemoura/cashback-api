@@ -9,6 +9,8 @@ if [ -z $1 ]; then
     echo "Running complete test suite"
     export PYTHONPATH=$PWD
     export PYTHONDONTWRITEBYTECODE=1
+    mkdir -p logs
+    touch logs/debug.log
     pytest -vvv --cov-report term-missing --cov=. --cov-config=.coveragerc
 else
     echo "Testing $@"
