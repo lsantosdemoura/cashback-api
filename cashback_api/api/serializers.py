@@ -17,6 +17,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PurchaseSerializer(serializers.ModelSerializer):
+    cashback_percentage = serializers.CharField(max_length=3, read_only=True)
+    cashback_value = serializers.DecimalField(decimal_places=2, max_digits=9, read_only=True)
+
     def create(self, validated_data):
         request = self.context['request']
         reseller = request.user
@@ -30,5 +33,5 @@ class PurchaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Purchase
-        fields = ['code', 'value', 'date', 'reseller', 'status']
-        read_only_fields = ['status']
+        fields = ['code', 'value', 'date', 'reseller', 'status', 'cashback_percentage', 'cashback_value']
+        read_only_fields = ['status', 'cashback_percentage', 'cashback_value']
