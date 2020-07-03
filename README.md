@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/lsantosdemoura/cashback-api.svg?branch=master)](https://travis-ci.org/lsantosdemoura/cashback-api)
 # Cashback API
 API for creating, reading, updating and deleting resellers and their purchases and check their cashback
 
