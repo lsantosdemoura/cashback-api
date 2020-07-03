@@ -1,12 +1,20 @@
 version: '2'
 
 services:
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
   test_api:
     build: .
     volumes:
-      - .:/webapps
+      - .:/code
     command: ["./run_tests.sh"]
     environment:
       - PYTHONWARNINGS=ignore
       - DJANGO_SETTINGS_MODULE=cashback_api.settings_test
       - SECRET_KEY=test_secret_key
+    depends_on:
+      - db

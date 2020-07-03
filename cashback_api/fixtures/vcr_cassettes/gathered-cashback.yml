@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+      token:
+      - ZXPURQOARHiMc6Y0flhRC1LVlZQVFRnm
+    method: GET
+    uri: https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com/v1/cashback?cpf=15350946056
+  response:
+    body:
+      string: '{"statusCode":200,"body":{"credit":1651}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '41'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 03 Jul 2020 16:45:51 GMT
+      X-Amzn-Trace-Id:
+      - Root=1-5eff60bf-638f8fbc6388d7203f0df338;Sampled=0
+      x-amz-apigw-id:
+      - PGwN7GcOIAMFlaA=
+      x-amzn-RequestId:
+      - b79038ec-0431-45eb-821f-7ab830f366a4
+    status:
+      code: 200
+      message: OK
+version: 1
