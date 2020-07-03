@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  test_api:
+    build: .
+    volumes:
+      - .:/webapps
+    command: ["./run_tests.sh"]
+    environment:
+      - PYTHONWARNINGS=ignore
+      - DJANGO_SETTINGS_MODULE=cashback_api.settings_test
+      - SECRET_KEY=test_secret_key

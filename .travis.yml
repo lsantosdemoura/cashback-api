@@ -1,0 +1,9 @@
+language: generic
+services:
+  - docker
+
+install:
+  - docker-compose -f test.yml build
+
+script:
+  - docker-compose -f test.yml run test_api
