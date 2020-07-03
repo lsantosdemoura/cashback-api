@@ -31,13 +31,16 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class PurchaseViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows purchases to be viewed or edited.
     """
 
     permission_classes = (IsAuthenticated,)
     serializer_class = PurchaseSerializer
 
     def _get_date_range(self):
+        """
+        Returns two dates based on user's request or the current date.
+        """
         start_date = self.request.query_params.get('start_date')
         end_date = self.request.query_params.get('end_date')
         if end_date:
@@ -54,6 +57,9 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 
     @staticmethod
     def get_cashback_percentage(value):
+        """
+        Returns the cashback percentage based on a value
+        """
         if value <= 1000:
             return Decimal('0.10')
         elif value <= 1500:
@@ -63,6 +69,10 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 
     @staticmethod
     def absolute_date_range(start_date, end_date):
+        """
+        Returns the date with the first day of the month of the `start_date` and
+        the date og the last day of the month of the `end_date`
+        """
         first_month_day_date = start_date - timedelta(days=start_date.day)
         first_month_day_date = first_month_day_date.strftime('%Y-%m-%d')
 
@@ -83,7 +93,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
     ):
         """
         Creates a filter and annotates the `cashback_value` and the
-        `cashback_percentage` to the queryset
+        `cashback_percentage` to the queryset.
         """
         annotated_queryset = (
             purchases_official_range.filter(date__month=month_and_sum['date__month'])
@@ -97,6 +107,10 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         return annotated_queryset
 
     def get_cashback(self, purchases_absolute_range, purchases_official_range):
+        """
+        Returns a list of `Purchase` objects based on the date range given
+        with the cashback applied to it.
+        """
         values_sum_by_month = purchases_absolute_range.values('date__month').annotate(
             Sum('value')
         )
@@ -127,7 +141,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """
-        This view should return a list of all the purchases
+        This view should return a list of the purchases in a date range
         for the currently authenticated user.
         """
 
@@ -156,19 +170,13 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 
 class GatheredCashbackView(APIView):
     """
-    View to list all users in the system.
-
-    * Requires token authentication.
-    * Only admin users are able to access this view.
+    API endpoint that returns the already credits gathered by resellers.
     """
 
     permission_classes = (IsAuthenticated,)
 
     @method_decorator(cache_page(60 * 60 * 2))
     def get(self, request, format=None):
-        """
-        Return a list of all users.
-        """
         url = 'https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com/v1/cashback'
         params = {'cpf': self.request.user.cpf}
         headers = {'token': settings.CASHBACK_TOKEN}
