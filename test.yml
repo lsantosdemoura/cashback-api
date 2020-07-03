@@ -16,5 +16,6 @@ services:
       - PYTHONWARNINGS=ignore
       - DJANGO_SETTINGS_MODULE=cashback_api.settings_test
       - SECRET_KEY=test_secret_key
+      - CASHBACK_TOKEN=test_cashback_token
     depends_on:
       - db
