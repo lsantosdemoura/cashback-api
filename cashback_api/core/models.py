@@ -1,6 +1,6 @@
-from django.db import models
-from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
+from django.db import models
 from localflavor.br.models import BRCPFField
 
 from .managers import UserManager
@@ -28,7 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Purchase(models.Model):
-    code = models.CharField(max_length=150, blank=False, null=False)
+    code = models.CharField(max_length=150, primary_key=True)
     value = models.DecimalField(
         max_digits=20, decimal_places=2, blank=False, null=False
     )
