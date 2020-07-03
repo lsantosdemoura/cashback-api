@@ -1,6 +1,9 @@
+import logging
 from rest_framework import serializers
 
 from core.models import Purchase, User
+
+logger = logging.getLogger(__name__)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,7 +31,10 @@ class PurchaseSerializer(serializers.ModelSerializer):
             validated_data['status'] = 'Aprovado'
 
         validated_data['reseller'] = reseller
-        purchase = Purchase.objects.create(**validated_data)
+        try:
+            purchase = Purchase.objects.create(**validated_data)
+        except Exception:
+            logger.exception("Error while creating a purchase object.")
         return purchase
 
     class Meta:
